@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        /* border: 1px solid black; */
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    #header {
+        height: 50px;
+        width: 100%;
+        padding-left: 40%;
+    }
+
+    h2 {
+        display: inline-block;
+        width: 35%;
+        text-align: left;
+        color: #3296fa;
+    }
+
+    #header span {
+        display: inline-block;
+        height: 68%;
+        font-size: 12px;
+        color: white;
+        background: #3296fa;
+        text-align: center;
+    }
+
+    #header a {
+        display: inline-block;
+        height: 68%;
+        font-size: 12px;
+        color: white;
+        background: #3296fa;
+        text-align: center;
+    }
+
+    #header span {
+        width: 12%;
+        padding-top: 15px;
+    }
+
+    #header a {
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+    }
+
+    .nav1 {
+        width: 100%;
+        height: 42px;
+        padding-left: 15%;
+        padding-right: 15%;
+        background: #169af3;
+    }
+    .nav1 ul {
+        width: 70%;
+        height: 40px;
+    }
+
+    .nav1 ul li {
+        float: left;
+        width: 50%;
+        height: 32px;
+        text-align: center;
+        padding-top: 8px;
+        color: #fff;
+    }
+
+    .showContent1 p {
+        width: 100%;
+        height: 50px;
+        margin-top: 50px;
+        font-size: 25px;
+        text-align: center;
+        color: #999;
+    }
+
+    .nav {
+        width: 100%;
+        height: 42px;
+        padding-left: 15%;
+        padding-right: 15%;
+        background: #169af3;
+    }
+    .nav ul {
+        width: 70%;
+        height: 40px;
+    }
+
+    .nav ul li {
+        float: left;
+        width: 50%;
+        height: 32px;
+        text-align: center;
+        padding-top: 8px;
+        color: #fff;
+    }
+   
+    strong {
+        margin-left: 30%;
+    }
+
+    #showContent li {
+        position: relative;
+        float: left;
+        width: 30%;
+        height: 60px;
+        border: 2px solid #169af3;
+        border-radius: 3px;
+        font-size: 14px;
+        text-align: center;
+        padding-top: 10px;
+        margin-left: 2%;
+        margin-top: 10px;
+    }
+
+    #addNote {
+        display: none;
+    }
+    
+    #addNote form {
+        border: 1px soldi black;
+        border-radius: 3px;
+    }
+
+    #addNote div {
+        width: 50%;
+        height: 80px;
+        margin-left: 30%;
+        margin-right: 20%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    #addNote input {
+        width: 60%;
+        height: 30px;
+    }
+
+
+    #addNote textarea {
+        width: 60%;
+        height: 60px;
+        border: 1px solid black;
+    }
+
+    #addNote button {
+        width: 60%;
+        height: 30px;
+        color: white;
+        background: #169af3;
+        border-radius: 3px;
+    }
+
+    #text input {
+        display: none;
+    }
+
+    .hideContent {
+        display: none;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+        padding: 10px 20px;
+        margin-top: 30px;
+        border: 1px solid #169af3;
+        border-radius: 3px;
+    }
+
+
+
+    #showContent span {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        display: inline-block;
+        padding-top: 20px;
+        font-size: 12px;
+        color: white;
+        background: #58adfb;
+        width: 8%;
+        height: 74%;
+        transition-delay: 1s;
+    }
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<body>
+  <div>
+      <% if (active) { %>
+          <div id="header">
+              <h2>小小笔记册</h2>
+             <span><%= "用户:"+title.username %></span>
+             <span><a href="/logout">登出</a></span> 
+          </div>
+          <div id="content">
+              <div class="nav">
+                  <ul>
+                      <li>首页</li>
+                      <li>添加笔记</li>
+                  </ul>
+              </div>
+              <div id="showContent">
+                  <ul>
+                      <% if(title.content.length > 0) { %>
+                          <% for(let i = 0; i < title.content.length; i++) {%>
+                             <li>
+                                 <%= title.content[i].title%>
+                                 <span>删除</span>
+                            </li>
+                             <div class="hideContent"><%= title.content[i].content%></div>
+                          <% } %>
+                      <%  } else {  %>
+                          <strong>你还没有添加笔记,点击添加笔记添加吧!</strong>
+                      <% } %>
+                  </ul>
+              </div>
+              <div id="addNote">
+                  <form method="post" action="addNote">
+                      <div>
+                        <input type="text" placeholder="标题" name="title" id="title">
+                      </div>
+                      <div id="text">
+                        <input type="text" name="content" id="content1">
+                        <textarea></textarea>
+                      </div>
+                      <div>
+                          <button type="submit">添加</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      <%} else { %>
+        <div id="header">
+                <h2>小小笔记册</h2>
+               <span><a href="/login">登录</a></span>
+               <span><a href="/register">注册</a></span> 
+            </div>
+            <div id="content">
+                <div class="nav1">
+                    <ul>
+                        <li>首页</li>
+                        <li>添加笔记</li>
+                    </ul>
+                </div>
+                <div class="showContent1">
+                    <p>请先登录</p>
+                </div>
+            </div>
+      <%} %>
+  </div>
+<script>
+    var showContent = document.getElementById("showContent");
+    var p = showContent.getElementsByTagName("p");
+    var title = document.getElementById("title");
+    var content = document.getElementById("content1");
+    var text = document.getElementById("text");
+    var textarea = text.getElementsByTagName("textarea");
+    var showLi = showContent.getElementsByTagName("li");
+    var addNote = document.getElementById("addNote");
+    var button = addNote.getElementsByTagName("button");
+    var li = document.getElementById("content").getElementsByTagName("li");
+    var hideContent = document.getElementsByClassName("hideContent");
+    var span = showContent.getElementsByTagName("span");
+    
+    button[0].onclick = function(event) {
+        content.value = textarea[0].value;
+        if (title.value == "") {
+            console.log(content.value);
+            alert("标题不能为空");
+            return false;
+        } else if(content.value == "") {
+            alert("内容不能为空");
+            return false;
+        }
+    }
+
+    li[0].onclick = function() {
+        addNote.style.display = "none";
+        showContent.style.display = "block";
+
+        for(var x = 0; x < hideContent.length; x++) {
+            hideContent[x].style.display = "none";
+        }
+
+        for(var j = 0; j < showLi.length; j++) {
+                showLi[j].style.display = "block";
+            }
+        for(var i = 0; i < p.length; i++) {
+            p[i].style.display = "none";
+        }
+    }
+    
+    li[1].onclick = function() {
+        addNote.style.display = "block";
+        showContent.style.display = "none";
+
+    }
+
+    for(let i = 0; i < showLi.length; i++) {
+        showLi[i].onclick = function() {
+            var num = i;
+            for(var j = 0; j < showLi.length; j++) {
+                showLi[j].style.display = "none";
+            }
+            // var html = `this is ${en}`;    字符串模板的用法
+            // console.log(html);
+            
+            hideContent[num].style.display = "block";  
+            // 这是标题到内容的关键步骤
+            // 用两个for循环， 第一个遍历使属性为none， 第二个for循环显示点击对象的
+        }
+        
+        // 以下代码用于电脑显示删除功能的
+        // showLi[i].onmouseover = function() {  
+        //     span[i].style.display = "inline-block";
+        // }
+
+        // showLi[i].onmouseout = function() {
+        //     span[i].style.display = "none";
+        // }
+
+        span[i].onclick = function(e) {
+            $.ajax({
+                type: 'POST',
+                url: 'delet',
+                data: {
+                    num: i
+                },
+                success: function(data) {
+                    window.location.href = "/";
+                }
+            });
+            e.stopPropagation();  // 阻止向上起泡影响其他事件
+        }
+
+    }
+</script>    
+</body>
+</html>

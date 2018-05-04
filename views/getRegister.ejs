@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        /* border: 1px solid black; */
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .header {
+        width: 60%;
+        margin: 20px auto;
+        border: 1px solid #898d90;
+        background: #f9f9f9;
+        border-radius: 5px;
+    }
+
+    .header p {
+        width: 100%;
+        height: 50px;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .header input {
+        width: 55%;
+        height: 30px;
+        color: #bebebe;
+        padding-left: 10px;
+    }
+
+    #denglu {
+        background: #3296fa;
+        color: #fff;
+        outline: none;
+    }
+
+</style>
+<body>
+    <div class="register">
+            <div class="header">
+                <form method="post" action="register">
+                <p>
+                    <input type="text" id="username" name="username" placeholder="请输入不超过五位的用户名">
+              </p>
+                <p>
+                    <input type="password" id="passwd" name="passwd" placeholder="请输入密码">
+               </p>
+               <p>
+                    <input type="password" id="repasswd" name="repasswd" placeholder="请确认密码">
+               </p>
+               <p>
+               <input type="submit" value="注册" id="denglu">
+               </p>
+                </form>
+            </div>
+        </div> 
+<script>
+    var username = document.getElementById("username");
+    var passwd = document.getElementById("passwd");
+    var repasswd = document.getElementById("repasswd");
+    var denglu = document.getElementById("denglu");
+
+    var checkMessage = function(event) {
+        denglu.onclick = function(event) {
+            if (username.value == "") {
+            alert("请输入用户名");
+            return false;
+            } else if(username.value.length > 5) {
+             alert("用户名不能超过五位!");
+             return false;
+            }
+             else if(passwd.value == "") {
+                alert("密码不能为空!");
+                return false;
+            } else if(repasswd.value !== passwd.value) {
+                alert("两次密码不一样!");
+                return false;
+            } 
+        }
+    }
+
+    var init = function() {
+        checkMessage();
+    }
+    
+    init();
+</script>
+</body>
+</html>
